@@ -1,0 +1,83 @@
+# =============================================
+#  Closr — .gitignore
+#  Swift / SwiftUI / SwiftData / Xcode project
+# =============================================
+
+# ── Xcode ────────────────────────────────────────────────────────────────────
+
+## Build artifacts
+build/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+## Per-user Xcode workspace settings (contain local paths)
+xcuserdata/
+
+## Xcode 8+
+*.xcscmblueprint
+*.xccheckout
+
+## Playground outputs
+playground.xcworkspace
+
+# ── Swift Package Manager ─────────────────────────────────────────────────────
+.build/
+.swiftpm/
+Packages/
+Package.resolved          # commit this ONLY if you want reproducible CI builds;
+                           # omit if you prefer always resolving to latest
+
+# ── CocoaPods ─────────────────────────────────────────────────────────────────
+# Uncomment the lines below if you ever add CocoaPods to this project
+# Pods/
+# Podfile.lock
+
+# ── Carthage ──────────────────────────────────────────────────────────────────
+Carthage/Build/
+
+# ── fastlane ──────────────────────────────────────────────────────────────────
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# ── OS & IDE artifacts ────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# ── Secrets & credentials (NEVER commit these) ───────────────────────────────
+*.p12
+*.mobileprovision
+*.cer
+*.certSigningRequest
+GoogleService-Info.plist   # Firebase — add per-scheme copies manually
+Secrets.swift
+Config.xcconfig            # If you store API keys here
+
+# ── Test results & coverage ───────────────────────────────────────────────────
+*.xcresult
+coverage/
+
+# ── Simulator & device logs ───────────────────────────────────────────────────
+*.crash
+*.ips
+
+# ── Archives (submit via Xcode Organizer, not git) ───────────────────────────
+*.xcarchive
+
+# ── Editor / tool noise ───────────────────────────────────────────────────────
+.idea/
+*.swp
+*.swo
+*~
