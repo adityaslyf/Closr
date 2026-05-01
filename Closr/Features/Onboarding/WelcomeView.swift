@@ -136,7 +136,11 @@ struct WelcomeView: View {
             )
         case .loveLanguage:
             LoveLanguageView(
-                onContinue: { _ in viewModel.navigationPath.append(.createAccount) }
+                onContinue: { _ in viewModel.navigationPath.append(.relationshipChallenge) }
+            )
+        case .relationshipChallenge:
+            RelationshipChallengeView(
+                onContinue: { viewModel.navigationPath.append(.createAccount) }
             )
         case .createAccount:
             InvitePartnerView(

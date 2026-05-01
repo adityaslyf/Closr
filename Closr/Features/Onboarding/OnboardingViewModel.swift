@@ -11,11 +11,12 @@ import Observation
 
 /// Navigation destination options from the onboarding welcome screen.
 enum OnboardingDestination: Hashable {
-    case userProfile      // → UserProfileView    (step 1)
-    case loveLanguage     // → LoveLanguageView   (step 1b)
-    case createAccount    // → InvitePartnerView  (step 2)
-    case connectPartner   // → ConnectPartnerView (step 3)
-    case inviteCode       // → ConnectPartnerView via "I have a code"
+    case userProfile           // → UserProfileView          (step 1)
+    case loveLanguage          // → LoveLanguageView         (step 1b)
+    case relationshipChallenge // → RelationshipChallengeView (step 1c)
+    case createAccount         // → InvitePartnerView         (step 2)
+    case connectPartner        // → ConnectPartnerView        (step 3)
+    case inviteCode            // → ConnectPartnerView via "I have a code"
 }
 
 /// Drives the `WelcomeView` state — keeps the view purely declarative.
