@@ -132,28 +132,21 @@ struct WelcomeView: View {
         switch destination {
         case .createAccount:
             InvitePartnerView(
-                onInviteSent: { viewModel.navigationPath.removeAll() },
-                onSkip:       { viewModel.navigationPath.removeAll() }
+                onInviteSent: { viewModel.navigationPath.append(.connectPartner) },
+                onSkip:       { viewModel.navigationPath.append(.connectPartner) }
+            )
+        case .connectPartner:
+            ConnectPartnerView(
+                onConnected: { viewModel.navigationPath.removeAll() },
+                onSkip:      { viewModel.navigationPath.removeAll() }
             )
         case .inviteCode:
-            // Placeholder — replace with InviteCodeView once built
-            PlaceholderDestinationView(title: "Enter Invite Code")
+            // "I have an invite code" from welcome → jump straight to connect screen
+            ConnectPartnerView(
+                onConnected: { viewModel.navigationPath.removeAll() },
+                onSkip:      { viewModel.navigationPath.removeAll() }
+            )
         }
-    }
-}
-
-// MARK: - Placeholder Destination View (remove when real screens exist)
-
-private struct PlaceholderDestinationView: View {
-    let title: String
-    var body: some View {
-        ZStack {
-            AppColors.backgroundPrimary.ignoresSafeArea()
-            Text(title)
-                .font(AppFonts.headline())
-                .foregroundStyle(AppColors.textPrimary)
-        }
-        .navigationBarHidden(true)
     }
 }
 
@@ -162,3 +155,4 @@ private struct PlaceholderDestinationView: View {
     WelcomeView()
         .preferredColorScheme(.dark)
 }
+

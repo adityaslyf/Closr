@@ -38,4 +38,32 @@ enum AppStrings {
         static let ctaSecondary     = "I'll do this later"
         static let errorEmpty       = "Please enter an email or phone number."
     }
+
+    enum ConnectPartner {
+        static let headlinePrefix     = "Connect with your "
+        static let headlineItalic     = "partner"
+        static let subtitle           = "Choose how you'd like to link up and begin your shared journey."
+
+        // Option cards
+        static let enterCardTitle     = "Enter a code"
+        static let enterCardSubtitle  = "I have a code my partner already shared with me"
+        static let shareCardTitle     = "Share my code"
+        static let shareCardSubtitle  = "Generate a unique code and send it to my partner"
+
+        // Enter code panel
+        static let enterSectionLabel  = "YOUR PARTNER'S CODE"
+        static let enterPlaceholder   = "e.g. CLOSR-A3B7"
+        static let errorEmptyCode     = "Please enter the code your partner shared."
+
+        // Share code panel
+        static let shareSectionLabel  = "YOUR UNIQUE CODE"
+        static let shareHint          = "Share this code with your partner so they can join."
+        static let shareCopyButton    = "Copy Code"
+        static let shareCopied        = "Copied!"
+
+        // CTAs
+        static let ctaContinue        = "Continue"
+        static let ctaSkip            = "I'll do this later"
+    }
 }
+
