@@ -131,8 +131,10 @@ struct WelcomeView: View {
     private func destinationView(for destination: OnboardingDestination) -> some View {
         switch destination {
         case .createAccount:
-            // Placeholder — replace with CreateAccountView once built
-            PlaceholderDestinationView(title: "Create Account")
+            InvitePartnerView(
+                onInviteSent: { viewModel.navigationPath.removeAll() },
+                onSkip:       { viewModel.navigationPath.removeAll() }
+            )
         case .inviteCode:
             // Placeholder — replace with InviteCodeView once built
             PlaceholderDestinationView(title: "Enter Invite Code")
