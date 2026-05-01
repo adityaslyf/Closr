@@ -12,7 +12,21 @@ import Foundation
 /// In future iterations these keys will map to Localizable.strings.
 enum AppStrings {
 
+    enum UserProfile {
+        static let screenTitle         = "Your profile"
+        static let nameSectionLabel    = "WHAT'S YOUR NAME?"
+        static let namePlaceholder     = "Enter your name"
+        static let nameHint            = "Your partner will see this name in your shared space. You can change it later."
+        static let ageSectionLabel     = "YOUR AGE"
+        static let ageHint             = "Used to personalise your experience. Never shown to others."
+        static let relationshipLabel   = "and how long have you two been together?"
+        static let stepIndicator       = "Step 1 of 3"
+        static let ctaContinue         = "Continue"
+        static let errorNameEmpty      = "Please enter your name to continue."
+    }
+
     enum Onboarding {
+
         static let appName         = "Closr"
         static let headlineTop     = "Deeper\nconnection,"
         static let headlineItalic  = "daily."

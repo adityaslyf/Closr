@@ -81,3 +81,9 @@ coverage/
 *.swp
 *.swo
 *~
+
+# ── One-off / scratch scripts (never commit these) ────────────────────────────
+add_files_to_xcode.rb
+fix_*.rb
+fix_*.sh
+scratch.*

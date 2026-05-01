@@ -130,6 +130,10 @@ struct WelcomeView: View {
     @ViewBuilder
     private func destinationView(for destination: OnboardingDestination) -> some View {
         switch destination {
+        case .userProfile:
+            UserProfileView(
+                onContinue: { viewModel.navigationPath.append(.createAccount) }
+            )
         case .createAccount:
             InvitePartnerView(
                 onInviteSent: { viewModel.navigationPath.append(.connectPartner) },
@@ -141,7 +145,7 @@ struct WelcomeView: View {
                 onSkip:      { viewModel.navigationPath.removeAll() }
             )
         case .inviteCode:
-            // "I have an invite code" from welcome → jump straight to connect screen
+            // "I have an invite code" from welcome → skip profile, go to connect
             ConnectPartnerView(
                 onConnected: { viewModel.navigationPath.removeAll() },
                 onSkip:      { viewModel.navigationPath.removeAll() }

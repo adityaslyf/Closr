@@ -11,9 +11,10 @@ import Observation
 
 /// Navigation destination options from the onboarding welcome screen.
 enum OnboardingDestination: Hashable {
+    case userProfile      // → UserProfileView  (step 1)
     case createAccount    // → InvitePartnerView (step 2)
     case connectPartner   // → ConnectPartnerView (step 3)
-    case inviteCode       // → InviteCodeView (entered from welcome "I have a code")
+    case inviteCode       // → ConnectPartnerView via "I have a code"
 }
 
 /// Drives the `WelcomeView` state — keeps the view purely declarative.
@@ -33,7 +34,7 @@ final class OnboardingViewModel {
 
     /// User tapped the primary "Start Journey" CTA.
     func startJourney() {
-        navigationPath.append(.createAccount)
+        navigationPath.append(.userProfile)
     }
 
     /// User tapped "I have an invite code".
