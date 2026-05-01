@@ -9,22 +9,16 @@
 import SwiftUI
 
 /// Step 2 of the onboarding flow — invite a partner via email or phone.
-///
-/// Architecture:
-/// - All state & logic in `InvitePartnerViewModel`
-/// - Strings from `AppStrings.InvitePartner`
-/// - Reusable components: `OnboardingNavBar`, `PrimaryButton`, `GhostButton`
+/// Logo removed; buttons are a sticky footer so everything fits one screen.
 struct InvitePartnerView: View {
 
-    // MARK: - Environment / ViewModel
+    // MARK: - ViewModel
     @State private var viewModel = InvitePartnerViewModel()
     @Environment(\.dismiss) private var dismiss
 
-    // Callbacks injected from parent navigator
     var onInviteSent: (() -> Void)?
     var onSkip: (() -> Void)?
 
-    // MARK: - Focus
     @FocusState private var isFieldFocused: Bool
 
     // MARK: - Body
@@ -35,50 +29,39 @@ struct InvitePartnerView: View {
             VStack(spacing: 0) {
 
                 // ── Nav bar ───────────────────────────────────────────────
-                OnboardingNavBar(totalSteps: 3, currentStep: 2) {
-                    dismiss()
-                }
-                .padding(.horizontal, AppSpacing.lg)
-                .padding(.top, AppSpacing.md)
+                OnboardingNavBar(totalSteps: 3, currentStep: 2) { dismiss() }
+                    .padding(.horizontal, AppSpacing.lg)
+                    .padding(.top, AppSpacing.md)
 
+                // ── Scrollable content ────────────────────────────────────
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
 
-                        // ── App name + logo ───────────────────────────────
-                        appHeader
-                            .padding(.top, AppSpacing.xl)
-
-                        // ── Logo mark (smaller scale) ─────────────────────
-                        ClosrLogoMark()
-                            .scaleEffect(0.55)
-                            .frame(height: 145)   // clamp the scaled frame
-                            .padding(.top, AppSpacing.xs)
-
-                        // ── Headline ──────────────────────────────────────
                         headlineSection
-                            .padding(.top, AppSpacing.xl)
+                            .padding(.top, AppSpacing.xxl)
                             .opacity(viewModel.contentVisible ? 1 : 0)
                             .offset(y: viewModel.contentVisible ? 0 : 16)
 
-                        // ── Form ──────────────────────────────────────────
                         formSection
                             .padding(.top, AppSpacing.xl)
                             .opacity(viewModel.contentVisible ? 1 : 0)
                             .offset(y: viewModel.contentVisible ? 0 : 20)
 
-                        // ── Contact sync row ──────────────────────────────
                         contactSyncRow
                             .padding(.top, AppSpacing.md)
                             .opacity(viewModel.contentVisible ? 1 : 0)
 
-                        // ── CTAs ──────────────────────────────────────────
-                        buttonSection
-                            .padding(.top, AppSpacing.xl)
-                            .padding(.bottom, AppSpacing.xxl)
-                            .opacity(viewModel.contentVisible ? 1 : 0)
+                        Spacer(minLength: AppSpacing.lg)
                     }
                     .padding(.horizontal, AppSpacing.lg)
+                    .frame(minHeight: UIScreen.main.bounds.height - 240)
                 }
+
+                // ── Sticky footer ─────────────────────────────────────────
+                buttonSection
+                    .padding(.horizontal, AppSpacing.lg)
+                    .padding(.bottom, AppSpacing.xl)
+                    .opacity(viewModel.contentVisible ? 1 : 0)
             }
         }
         .navigationBarHidden(true)
@@ -86,25 +69,10 @@ struct InvitePartnerView: View {
         .onTapGesture { isFieldFocused = false }
     }
 
-    // MARK: - Sub-views
-
-    private var appHeader: some View {
-        VStack(spacing: AppSpacing.xs) {
-            Text(AppStrings.Onboarding.appName)
-                .font(AppFonts.headline(size: 22))
-                .foregroundStyle(AppColors.textPrimary)
-                .tracking(1.5)
-
-            RoundedRectangle(cornerRadius: 2)
-                .fill(AppColors.brand)
-                .frame(width: 28, height: 2)
-        }
-    }
+    // MARK: - Headline
 
     private var headlineSection: some View {
-        VStack(spacing: AppSpacing.xs) {
-
-            // "Invite your partner" — mixed weight + colour on one line
+        VStack(alignment: .leading, spacing: AppSpacing.xs) {
             (
                 Text(AppStrings.InvitePartner.headlinePrefix)
                     .font(AppFonts.displayMedium(size: 34))
@@ -114,30 +82,27 @@ struct InvitePartnerView: View {
                     .font(AppFonts.displayItalic(size: 34))
                     .foregroundColor(AppColors.textAccent)
             )
-            .multilineTextAlignment(.center)
             .lineSpacing(2)
 
-            // Subtitle
             Text(AppStrings.InvitePartner.subtitle)
                 .font(AppFonts.bodyRegular(size: 15))
                 .foregroundStyle(AppColors.textSecondary)
-                .multilineTextAlignment(.center)
                 .lineSpacing(4)
                 .padding(.top, AppSpacing.xxs)
-                .padding(.horizontal, AppSpacing.xs)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
+
+    // MARK: - Form
 
     private var formSection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.sm) {
 
-            // Section label
             Text(AppStrings.InvitePartner.sectionLabel)
-                .font(.system(size: 11, weight: .semibold, design: .default))
+                .font(.system(size: 11, weight: .semibold))
                 .foregroundStyle(AppColors.textSecondary)
                 .tracking(1.8)
 
-            // Text field
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: AppRadius.md)
                     .fill(AppColors.backgroundCard)
@@ -176,7 +141,6 @@ struct InvitePartnerView: View {
                     }
             }
 
-            // Inline error
             if viewModel.hasError {
                 Text(viewModel.errorMessage)
                     .font(AppFonts.label(size: 12))
@@ -186,41 +150,30 @@ struct InvitePartnerView: View {
         }
     }
 
+    // MARK: - Contact Sync
+
     private var contactSyncRow: some View {
         HStack(spacing: AppSpacing.sm) {
-
-            // ── Avatar stack ─────────────────────────────────────────────
             ZStack(alignment: .leading) {
-                // Instagram-style icon avatar (second, on top)
                 Circle()
                     .fill(AppColors.brand)
                     .frame(width: 32, height: 32)
-                    .overlay(
-                        Image(systemName: "camera.fill")
-                            .font(.system(size: 13, weight: .medium))
-                            .foregroundStyle(.white)
-                    )
-                    .overlay(
-                        Circle().stroke(AppColors.backgroundPrimary, lineWidth: 2)
-                    )
+                    .overlay(Image(systemName: "camera.fill")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(.white))
+                    .overlay(Circle().stroke(AppColors.backgroundPrimary, lineWidth: 2))
                     .offset(x: 20)
 
-                // Initials avatar (first, underneath)
                 Circle()
                     .fill(AppColors.backgroundSecondary)
                     .frame(width: 32, height: 32)
-                    .overlay(
-                        Text("JD")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundStyle(AppColors.textSecondary)
-                    )
-                    .overlay(
-                        Circle().stroke(AppColors.backgroundPrimary, lineWidth: 2)
-                    )
+                    .overlay(Text("JD")
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(AppColors.textSecondary))
+                    .overlay(Circle().stroke(AppColors.backgroundPrimary, lineWidth: 2))
             }
             .frame(width: 56, height: 32)
 
-            // ── Hint text ────────────────────────────────────────────────
             Text(AppStrings.InvitePartner.contactSyncHint)
                 .font(AppFonts.bodyRegular(size: 14))
                 .foregroundStyle(AppColors.textSecondary)
@@ -232,25 +185,19 @@ struct InvitePartnerView: View {
         .pressAnimation()
     }
 
+    // MARK: - Footer Buttons
+
     private var buttonSection: some View {
         VStack(spacing: AppSpacing.xs) {
             PrimaryButton(
                 title: AppStrings.InvitePartner.ctaPrimary,
-                action: {
-                    viewModel.sendInvitation {
-                        onInviteSent?()
-                    }
-                },
+                action: { viewModel.sendInvitation { onInviteSent?() } },
                 isLoading: viewModel.isSending
             )
 
             GhostButton(
                 title: AppStrings.InvitePartner.ctaSecondary,
-                action: {
-                    viewModel.skipForNow {
-                        onSkip?()
-                    }
-                }
+                action: { viewModel.skipForNow { onSkip?() } }
             )
         }
     }

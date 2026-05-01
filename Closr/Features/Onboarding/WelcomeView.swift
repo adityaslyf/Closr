@@ -132,7 +132,11 @@ struct WelcomeView: View {
         switch destination {
         case .userProfile:
             UserProfileView(
-                onContinue: { viewModel.navigationPath.append(.createAccount) }
+                onContinue: { viewModel.navigationPath.append(.loveLanguage) }
+            )
+        case .loveLanguage:
+            LoveLanguageView(
+                onContinue: { _ in viewModel.navigationPath.append(.createAccount) }
             )
         case .createAccount:
             InvitePartnerView(

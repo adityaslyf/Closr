@@ -21,7 +21,7 @@ struct AvatarPickerView: View {
     @State private var isLoading: Bool               = false
 
     // MARK: - Layout
-    private let size: CGFloat = 120
+    private let size: CGFloat = 80
 
     // MARK: - Body
     var body: some View {
@@ -57,13 +57,13 @@ struct AvatarPickerView: View {
                     .transition(.opacity)
             } else {
                 // Camera placeholder
-                VStack(spacing: AppSpacing.xxs) {
+                VStack(spacing: 4) {
                     Image(systemName: "camera.fill")
-                        .font(.system(size: 26, weight: .medium))
+                        .font(.system(size: 18, weight: .medium))
                         .foregroundStyle(AppColors.textSecondary.opacity(0.6))
 
                     Text("ADD")
-                        .font(.system(size: 11, weight: .bold))
+                        .font(.system(size: 9, weight: .bold))
                         .foregroundStyle(AppColors.brand)
                         .tracking(1.5)
                 }

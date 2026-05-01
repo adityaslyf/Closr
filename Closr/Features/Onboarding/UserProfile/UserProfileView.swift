@@ -9,22 +9,21 @@
 import SwiftUI
 
 /// Step 1 of 3 — user sets up their personal profile.
-///
-/// Fields:
-///   • Avatar photo (PhotosPicker)
-///   • Display name
-///   • Age (wheel picker sheet)
-///   • Relationship length (custom slider)
+/// All content fits a single screen without scrolling:
+///   • "Your profile" title + brand underline
+///   • Avatar picker (80pt circle)
+///   • Name field
+///   • Age picker row
+///   • Relationship slider
+///   • Sticky Continue + step indicator footer
 struct UserProfileView: View {
 
     // MARK: - ViewModel
     @State private var viewModel = UserProfileViewModel()
     @Environment(\.dismiss) private var dismiss
 
-    // Callback to advance the flow
     var onContinue: (() -> Void)?
 
-    // MARK: - Focus
     @FocusState private var isNameFocused: Bool
 
     // MARK: - Body
@@ -34,50 +33,53 @@ struct UserProfileView: View {
 
             VStack(spacing: 0) {
 
-                // ── Navigation bar ────────────────────────────────────────
-                OnboardingNavBar(totalSteps: 3, currentStep: 1) {
-                    dismiss()
-                }
-                .padding(.horizontal, AppSpacing.lg)
-                .padding(.top, AppSpacing.md)
+                // ── Nav bar ───────────────────────────────────────────────
+                OnboardingNavBar(totalSteps: 3, currentStep: 1) { dismiss() }
+                    .padding(.horizontal, AppSpacing.lg)
+                    .padding(.top, AppSpacing.md)
 
+                // ── Scrollable body ───────────────────────────────────────
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
 
-                        // ── Screen title ──────────────────────────────────
+                        // Title
                         screenTitle
-                            .padding(.top, AppSpacing.xl)
+                            .padding(.top, AppSpacing.lg)
 
-                        // ── Avatar picker ─────────────────────────────────
+                        // Avatar
                         AvatarPickerView(selectedImage: $viewModel.avatarImage)
-                            .padding(.top, AppSpacing.xl)
+                            .padding(.top, AppSpacing.md)
                             .opacity(viewModel.contentVisible ? 1 : 0)
-                            .scaleEffect(viewModel.contentVisible ? 1 : 0.9)
+                            .scaleEffect(viewModel.contentVisible ? 1 : 0.88)
+                            .animation(.spring(response: 0.45, dampingFraction: 0.7), value: viewModel.contentVisible)
 
-                        // ── Name field ────────────────────────────────────
+                        // Name field
                         nameSection
-                            .padding(.top, AppSpacing.xl)
+                            .padding(.top, AppSpacing.lg)
                             .opacity(viewModel.contentVisible ? 1 : 0)
-                            .offset(y: viewModel.contentVisible ? 0 : 14)
+                            .offset(y: viewModel.contentVisible ? 0 : 12)
+                            .animation(.easeOut(duration: 0.4).delay(0.1), value: viewModel.contentVisible)
 
-                        // ── Age picker row ────────────────────────────────
+                        // Age row
                         ageSection
-                            .padding(.top, AppSpacing.lg)
+                            .padding(.top, AppSpacing.md)
                             .opacity(viewModel.contentVisible ? 1 : 0)
-                            .offset(y: viewModel.contentVisible ? 0 : 14)
+                            .offset(y: viewModel.contentVisible ? 0 : 12)
+                            .animation(.easeOut(duration: 0.4).delay(0.15), value: viewModel.contentVisible)
 
-                        // ── Relationship slider ───────────────────────────
+                        // Relationship slider
                         relationshipSection
-                            .padding(.top, AppSpacing.lg)
+                            .padding(.top, AppSpacing.md)
                             .opacity(viewModel.contentVisible ? 1 : 0)
-                            .offset(y: viewModel.contentVisible ? 0 : 18)
+                            .offset(y: viewModel.contentVisible ? 0 : 12)
+                            .animation(.easeOut(duration: 0.4).delay(0.2), value: viewModel.contentVisible)
 
-                        Spacer(minLength: AppSpacing.xxl)
+                        Spacer(minLength: AppSpacing.sm)
                     }
                     .padding(.horizontal, AppSpacing.lg)
                 }
 
-                // ── Footer: Continue + step indicator ─────────────────────
+                // ── Sticky footer ─────────────────────────────────────────
                 footerSection
                     .padding(.horizontal, AppSpacing.lg)
                     .padding(.bottom, AppSpacing.xl)
@@ -87,35 +89,31 @@ struct UserProfileView: View {
         .navigationBarHidden(true)
         .onAppear { viewModel.onAppear() }
         .onTapGesture { isNameFocused = false }
-        // Age picker sheet
-        .sheet(isPresented: $viewModel.showAgePicker) {
-            agePicker
-        }
+        .sheet(isPresented: $viewModel.showAgePicker) { agePicker }
     }
 
-    // MARK: - Sub-views
+    // MARK: - Title
 
     private var screenTitle: some View {
-        VStack(spacing: AppSpacing.xs) {
+        VStack(spacing: 6) {
             Text(AppStrings.UserProfile.screenTitle)
-                .font(AppFonts.displayMedium(size: 30))
+                .font(AppFonts.displayMedium(size: 26))
                 .foregroundStyle(AppColors.textPrimary)
                 .multilineTextAlignment(.center)
 
             RoundedRectangle(cornerRadius: 2)
                 .fill(AppColors.brand)
-                .frame(width: 28, height: 2)
+                .frame(width: 24, height: 2)
         }
     }
 
     // MARK: - Name
 
     private var nameSection: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.sm) {
+        VStack(alignment: .leading, spacing: AppSpacing.xs) {
 
             sectionLabel(AppStrings.UserProfile.nameSectionLabel)
 
-            // Input field
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: AppRadius.md)
                     .fill(AppColors.backgroundCard)
@@ -130,46 +128,47 @@ struct UserProfileView: View {
                                 lineWidth: 1
                             )
                     )
-                    .frame(height: 56)
+                    .frame(height: 52)
 
                 if viewModel.name.isEmpty {
                     Text(AppStrings.UserProfile.namePlaceholder)
-                        .font(AppFonts.bodyRegular(size: 16))
-                        .foregroundStyle(AppColors.textSecondary.opacity(0.55))
+                        .font(AppFonts.bodyRegular(size: 15))
+                        .foregroundStyle(AppColors.textSecondary.opacity(0.5))
                         .padding(.horizontal, AppSpacing.md)
                 }
 
                 TextField("", text: $viewModel.name)
-                    .font(AppFonts.bodyRegular(size: 16))
+                    .font(AppFonts.bodyRegular(size: 15))
                     .foregroundStyle(AppColors.textPrimary)
                     .tint(AppColors.brand)
                     .padding(.horizontal, AppSpacing.md)
-                    .frame(height: 56)
+                    .frame(height: 52)
                     .focused($isNameFocused)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.words)
                     .onChange(of: viewModel.name) { _, _ in viewModel.onNameChanged() }
             }
 
-            // Inline error or hint
-            if viewModel.hasNameError {
-                Text(viewModel.nameErrorMessage)
-                    .font(AppFonts.label(size: 12))
-                    .foregroundStyle(AppColors.brand)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            } else {
-                Text(AppStrings.UserProfile.nameHint)
-                    .font(AppFonts.label(size: 13))
-                    .foregroundStyle(AppColors.textSecondary.opacity(0.7))
-                    .lineSpacing(3)
+            // Error or compact hint
+            Group {
+                if viewModel.hasNameError {
+                    Text(viewModel.nameErrorMessage)
+                        .foregroundStyle(AppColors.brand)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                } else {
+                    Text(AppStrings.UserProfile.nameHint)
+                        .foregroundStyle(AppColors.textSecondary.opacity(0.65))
+                }
             }
+            .font(AppFonts.label(size: 12))
+            .lineSpacing(2)
         }
     }
 
     // MARK: - Age
 
     private var ageSection: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.sm) {
+        VStack(alignment: .leading, spacing: AppSpacing.xs) {
 
             sectionLabel(AppStrings.UserProfile.ageSectionLabel)
 
@@ -179,10 +178,10 @@ struct UserProfileView: View {
             } label: {
                 HStack {
                     Text("\(viewModel.age) years old")
-                        .font(AppFonts.bodyRegular(size: 16))
+                        .font(AppFonts.bodyRegular(size: 15))
                         .foregroundStyle(
                             viewModel.age == 25
-                                ? AppColors.textSecondary.opacity(0.55)
+                                ? AppColors.textSecondary.opacity(0.5)
                                 : AppColors.textPrimary
                         )
                         .padding(.leading, AppSpacing.md)
@@ -194,7 +193,7 @@ struct UserProfileView: View {
                         .foregroundStyle(AppColors.textSecondary)
                         .padding(.trailing, AppSpacing.md)
                 }
-                .frame(height: 56)
+                .frame(height: 52)
                 .background(
                     RoundedRectangle(cornerRadius: AppRadius.md)
                         .fill(AppColors.backgroundCard)
@@ -205,23 +204,16 @@ struct UserProfileView: View {
                 )
             }
             .pressAnimation()
-
-            Text(AppStrings.UserProfile.ageHint)
-                .font(AppFonts.label(size: 13))
-                .foregroundStyle(AppColors.textSecondary.opacity(0.7))
-                .lineSpacing(3)
         }
     }
 
     // MARK: - Relationship
 
     private var relationshipSection: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.md) {
-
+        VStack(alignment: .leading, spacing: AppSpacing.sm) {
             Text(AppStrings.UserProfile.relationshipLabel)
-                .font(AppFonts.bodyRegular(size: 15))
+                .font(AppFonts.bodyRegular(size: 14))
                 .foregroundStyle(AppColors.textSecondary)
-                .lineSpacing(3)
 
             RelationshipSlider(value: $viewModel.relationshipLength)
         }
@@ -230,20 +222,18 @@ struct UserProfileView: View {
     // MARK: - Footer
 
     private var footerSection: some View {
-        VStack(spacing: AppSpacing.sm) {
+        VStack(spacing: AppSpacing.xs) {
             PrimaryButton(
                 title: AppStrings.UserProfile.ctaContinue,
                 action: { viewModel.onContinue { onContinue?() } },
                 isLoading: viewModel.isLoading
             )
 
-            // "Step 1 of 3" with "1 of 3" in white
             (Text("Step ").foregroundColor(AppColors.textSecondary)
              + Text("1 of 3").foregroundColor(AppColors.textPrimary).bold())
                 .font(AppFonts.label(size: 13))
         }
     }
-
 
     // MARK: - Age Picker Sheet
 
@@ -287,7 +277,7 @@ struct UserProfileView: View {
 
     private func sectionLabel(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: 11, weight: .semibold))
+            .font(.system(size: 10, weight: .semibold))
             .foregroundStyle(AppColors.textSecondary)
             .tracking(1.8)
     }
