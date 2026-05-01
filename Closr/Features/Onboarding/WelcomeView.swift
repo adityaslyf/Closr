@@ -153,14 +153,18 @@ struct WelcomeView: View {
             )
         case .connectPartner:
             ConnectPartnerView(
-                onConnected: { viewModel.navigationPath.removeAll() },
-                onSkip:      { viewModel.navigationPath.removeAll() }
+                onConnected: { viewModel.navigationPath.append(.firstQuestion) },
+                onSkip:      { viewModel.navigationPath.append(.firstQuestion) }
             )
         case .inviteCode:
             // "I have an invite code" from welcome → skip profile, go to connect
             ConnectPartnerView(
-                onConnected: { viewModel.navigationPath.removeAll() },
-                onSkip:      { viewModel.navigationPath.removeAll() }
+                onConnected: { viewModel.navigationPath.append(.firstQuestion) },
+                onSkip:      { viewModel.navigationPath.append(.firstQuestion) }
+            )
+        case .firstQuestion:
+            FirstQuestionView(
+                onContinue: { viewModel.navigationPath.removeAll() }
             )
         }
     }

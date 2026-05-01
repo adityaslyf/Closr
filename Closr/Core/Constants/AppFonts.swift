@@ -39,6 +39,10 @@ enum AppFonts {
         .system(size: size, weight: .semibold, design: .default)
     }
 
+    static func bodyItalic(size: CGFloat = 16) -> Font {
+        .system(size: size, weight: .regular, design: .default).italic()
+    }
+
     // MARK: - Label
     static func label(size: CGFloat = 13) -> Font {
         .system(size: size, weight: .regular, design: .default)

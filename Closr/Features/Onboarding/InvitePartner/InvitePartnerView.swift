@@ -50,11 +50,9 @@ struct InvitePartnerView: View {
                         contactSyncRow
                             .padding(.top, AppSpacing.md)
                             .opacity(viewModel.contentVisible ? 1 : 0)
-
-                        Spacer(minLength: AppSpacing.lg)
                     }
                     .padding(.horizontal, AppSpacing.lg)
-                    .frame(minHeight: UIScreen.main.bounds.height - 240)
+                    .padding(.bottom, AppSpacing.lg)
                 }
 
                 // ── Sticky footer ─────────────────────────────────────────
@@ -73,15 +71,14 @@ struct InvitePartnerView: View {
 
     private var headlineSection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.xs) {
-            (
+            HStack(spacing: 0) {
                 Text(AppStrings.InvitePartner.headlinePrefix)
                     .font(AppFonts.displayMedium(size: 34))
                     .foregroundColor(AppColors.textPrimary)
-                +
                 Text(AppStrings.InvitePartner.headlineItalic)
                     .font(AppFonts.displayItalic(size: 34))
                     .foregroundColor(AppColors.textAccent)
-            )
+            }
             .lineSpacing(2)
 
             Text(AppStrings.InvitePartner.subtitle)

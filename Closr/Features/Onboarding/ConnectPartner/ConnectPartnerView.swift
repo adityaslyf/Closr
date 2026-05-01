@@ -61,12 +61,10 @@ struct ConnectPartnerView: View {
                                     removal:   .opacity
                                 ))
                         }
-
-                        Spacer(minLength: AppSpacing.lg)
                     }
                     .padding(.horizontal, AppSpacing.lg)
+                    .padding(.bottom, AppSpacing.lg)
                     .animation(.easeInOut(duration: 0.35), value: viewModel.selectedMode)
-                    .frame(minHeight: UIScreen.main.bounds.height - 200)
                 }
 
                 // ── Sticky footer ─────────────────────────────────────────
@@ -85,15 +83,14 @@ struct ConnectPartnerView: View {
 
     private var headlineSection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.xs) {
-            (
+            HStack(spacing: 0) {
                 Text(AppStrings.ConnectPartner.headlinePrefix)
                     .font(AppFonts.displayMedium(size: 30))
                     .foregroundColor(AppColors.textPrimary)
-                +
                 Text(AppStrings.ConnectPartner.headlineItalic)
                     .font(AppFonts.displayItalic(size: 30))
                     .foregroundColor(AppColors.textAccent)
-            )
+            }
             .lineSpacing(2)
 
             Text(AppStrings.ConnectPartner.subtitle)

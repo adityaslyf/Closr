@@ -229,9 +229,11 @@ struct UserProfileView: View {
                 isLoading: viewModel.isLoading
             )
 
-            (Text("Step ").foregroundColor(AppColors.textSecondary)
-             + Text("1 of 3").foregroundColor(AppColors.textPrimary).bold())
-                .font(AppFonts.label(size: 13))
+            HStack(spacing: 0) {
+                Text("Step ").foregroundColor(AppColors.textSecondary)
+                Text("1 of 3").foregroundColor(AppColors.textPrimary).bold()
+            }
+            .font(AppFonts.label(size: 13))
         }
     }
 

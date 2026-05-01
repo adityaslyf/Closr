@@ -18,6 +18,7 @@ enum OnboardingDestination: Hashable {
     case createAccount         // → InvitePartnerView         (step 2)
     case connectPartner        // → ConnectPartnerView        (step 3)
     case inviteCode            // → ConnectPartnerView via "I have a code"
+    case firstQuestion         // → FirstQuestionView         (step 4)
 }
 
 /// Drives the `WelcomeView` state — keeps the view purely declarative.
