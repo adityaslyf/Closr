@@ -140,6 +140,10 @@ struct WelcomeView: View {
             )
         case .relationshipChallenge:
             RelationshipChallengeView(
+                onContinue: { viewModel.navigationPath.append(.paywall) }
+            )
+        case .paywall:
+            PaywallView(
                 onContinue: { viewModel.navigationPath.append(.createAccount) }
             )
         case .createAccount:
