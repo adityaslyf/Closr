@@ -164,6 +164,10 @@ struct WelcomeView: View {
             )
         case .relationshipChallenge:
             RelationshipChallengeView(
+                onContinue: { viewModel.navigationPath.append(.valueProposition) }
+            )
+        case .valueProposition:
+            ValuePropositionView(
                 onContinue: { viewModel.navigationPath.append(.paywall) }
             )
         case .paywall:

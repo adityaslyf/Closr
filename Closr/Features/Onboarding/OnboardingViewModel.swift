@@ -19,8 +19,9 @@ enum OnboardingDestination: Hashable {
     case livingSituation       // → LivingSituationView      (step 1e)
     case kids                  // → KidsView                 (step 1f)
     case loveLanguage          // → LoveLanguageView         (step 1g)
-    case relationshipChallenge // → RelationshipChallengeView (step 1e)
-    case paywall               // → PaywallView               (step 1d)
+    case relationshipChallenge // → RelationshipChallengeView (step 1h)
+    case valueProposition      // → ValuePropositionView     (step 1i)
+    case paywall               // → PaywallView               (step 1j)
     case createAccount         // → InvitePartnerView         (step 2)
     case connectPartner        // → ConnectPartnerView        (step 3)
     case inviteCode            // → ConnectPartnerView via "I have a code"
