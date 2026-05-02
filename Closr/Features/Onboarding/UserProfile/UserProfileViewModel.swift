@@ -16,19 +16,16 @@ final class UserProfileViewModel {
     // MARK: - User Inputs
     var name: String            = ""
     var avatarImage: UIImage?   = nil
-    var age: Int                = 25          // selected age (18–80)
-    var relationshipLength: Double = 1.0     // slider 0–10
+    var birthday: Date?         = nil         // optional birthday
 
     // MARK: - UI State
-    var showAgePicker: Bool     = false
+    var showBirthdayPicker: Bool = false
     var hasNameError: Bool      = false
     var nameErrorMessage: String = ""
     var contentVisible: Bool    = false
     var isLoading: Bool         = false
 
     // MARK: - Computed
-
-    var ageDisplay: String { "\(age)" }
 
     var canContinue: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty

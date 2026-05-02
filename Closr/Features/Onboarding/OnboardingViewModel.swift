@@ -12,8 +12,11 @@ import Observation
 /// Navigation destination options from the onboarding welcome screen.
 enum OnboardingDestination: Hashable {
     case userProfile           // → UserProfileView          (step 1)
-    case loveLanguage          // → LoveLanguageView         (step 1b)
-    case relationshipChallenge // → RelationshipChallengeView (step 1c)
+    case gender                // → GenderView               (step 1a)
+    case partnerName           // → PartnerNameView          (step 1b)
+    case relationshipLength    // → RelationshipLengthView   (step 1c)
+    case loveLanguage          // → LoveLanguageView         (step 1d)
+    case relationshipChallenge // → RelationshipChallengeView (step 1e)
     case paywall               // → PaywallView               (step 1d)
     case createAccount         // → InvitePartnerView         (step 2)
     case connectPartner        // → ConnectPartnerView        (step 3)

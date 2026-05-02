@@ -132,6 +132,18 @@ struct WelcomeView: View {
         switch destination {
         case .userProfile:
             UserProfileView(
+                onContinue: { viewModel.navigationPath.append(.gender) }
+            )
+        case .gender:
+            GenderView(
+                onContinue: { viewModel.navigationPath.append(.partnerName) }
+            )
+        case .partnerName:
+            PartnerNameView(
+                onContinue: { viewModel.navigationPath.append(.relationshipLength) }
+            )
+        case .relationshipLength:
+            RelationshipLengthView(
                 onContinue: { viewModel.navigationPath.append(.loveLanguage) }
             )
         case .loveLanguage:

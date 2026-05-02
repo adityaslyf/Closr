@@ -60,15 +60,9 @@ struct UserProfileView: View {
                             .offset(y: viewModel.contentVisible ? 0 : 12)
                             .animation(.easeOut(duration: 0.4).delay(0.1), value: viewModel.contentVisible)
 
-                        // Age row
-                        ageSection
-                            .padding(.top, AppSpacing.md)
-                            .opacity(viewModel.contentVisible ? 1 : 0)
-                            .offset(y: viewModel.contentVisible ? 0 : 12)
-                            .animation(.easeOut(duration: 0.4).delay(0.15), value: viewModel.contentVisible)
 
-                        // Relationship slider
-                        relationshipSection
+                        // Birthday row
+                        birthdaySection
                             .padding(.top, AppSpacing.md)
                             .opacity(viewModel.contentVisible ? 1 : 0)
                             .offset(y: viewModel.contentVisible ? 0 : 12)
@@ -89,7 +83,7 @@ struct UserProfileView: View {
         .navigationBarHidden(true)
         .onAppear { viewModel.onAppear() }
         .onTapGesture { isNameFocused = false }
-        .sheet(isPresented: $viewModel.showAgePicker) { agePicker }
+        .sheet(isPresented: $viewModel.showBirthdayPicker) { birthdayPicker }
     }
 
     // MARK: - Title
@@ -165,31 +159,40 @@ struct UserProfileView: View {
         }
     }
 
-    // MARK: - Age
+    // MARK: - Birthday
 
-    private var ageSection: some View {
+    private var birthdaySection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.xs) {
 
-            sectionLabel(AppStrings.UserProfile.ageSectionLabel)
+            HStack {
+                sectionLabel("YOUR BIRTHDAY")
+                Text("(Optional)")
+                    .font(.system(size: 10, weight: .regular))
+                    .foregroundStyle(AppColors.textSecondary.opacity(0.6))
+            }
 
             Button {
                 isNameFocused = false
-                viewModel.showAgePicker = true
+                viewModel.showBirthdayPicker = true
             } label: {
                 HStack {
-                    Text("\(viewModel.age) years old")
-                        .font(AppFonts.bodyRegular(size: 15))
-                        .foregroundStyle(
-                            viewModel.age == 25
-                                ? AppColors.textSecondary.opacity(0.5)
-                                : AppColors.textPrimary
-                        )
-                        .padding(.leading, AppSpacing.md)
+                    Group {
+                        if let birthday = viewModel.birthday {
+                            Text(birthday.formatted(date: .long, time: .omitted))
+                                .font(AppFonts.bodyRegular(size: 15))
+                                .foregroundStyle(AppColors.textPrimary)
+                        } else {
+                            Text("Add your birthday")
+                                .font(AppFonts.bodyRegular(size: 15))
+                                .foregroundStyle(AppColors.textSecondary.opacity(0.5))
+                        }
+                    }
+                    .padding(.leading, AppSpacing.md)
 
                     Spacer()
 
-                    Image(systemName: "chevron.up.chevron.down")
-                        .font(.system(size: 12, weight: .medium))
+                    Image(systemName: "calendar")
+                        .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(AppColors.textSecondary)
                         .padding(.trailing, AppSpacing.md)
                 }
@@ -204,18 +207,6 @@ struct UserProfileView: View {
                 )
             }
             .pressAnimation()
-        }
-    }
-
-    // MARK: - Relationship
-
-    private var relationshipSection: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.sm) {
-            Text(AppStrings.UserProfile.relationshipLabel)
-                .font(AppFonts.bodyRegular(size: 14))
-                .foregroundStyle(AppColors.textSecondary)
-
-            RelationshipSlider(value: $viewModel.relationshipLength)
         }
     }
 
@@ -237,32 +228,34 @@ struct UserProfileView: View {
         }
     }
 
-    // MARK: - Age Picker Sheet
 
-    private var agePicker: some View {
+    // MARK: - Birthday Picker Sheet
+
+    private var birthdayPicker: some View {
         NavigationStack {
             ZStack {
                 AppColors.backgroundSecondary.ignoresSafeArea()
 
                 VStack(spacing: AppSpacing.lg) {
-                    Text("How old are you?")
+                    Text("When is your birthday?")
                         .font(AppFonts.headline(size: 20))
                         .foregroundStyle(AppColors.textPrimary)
                         .padding(.top, AppSpacing.lg)
 
-                    Picker("Age", selection: $viewModel.age) {
-                        ForEach(13...100, id: \.self) { age in
-                            Text("\(age)")
-                                .font(AppFonts.bodyRegular(size: 18))
-                                .foregroundStyle(AppColors.textPrimary)
-                                .tag(age)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .tint(AppColors.brand)
+                    DatePicker(
+                        "",
+                        selection: Binding(
+                            get: { viewModel.birthday ?? Date() },
+                            set: { viewModel.birthday = $0 }
+                        ),
+                        displayedComponents: .date
+                    )
+                    .datePickerStyle(.wheel)
+                    .labelsHidden()
+                    .environment(\.colorScheme, .dark)
 
                     PrimaryButton(title: "Done") {
-                        viewModel.showAgePicker = false
+                        viewModel.showBirthdayPicker = false
                     }
                     .padding(.horizontal, AppSpacing.lg)
                     .padding(.bottom, AppSpacing.xl)
