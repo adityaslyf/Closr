@@ -180,6 +180,10 @@ struct WelcomeView: View {
             )
         case .paywall:
             PaywallView(
+                onContinue: { viewModel.navigationPath.append(.signIn) }
+            )
+        case .signIn:
+            SignInView(
                 onContinue: { viewModel.navigationPath.append(.connectPartner) }
             )
         case .connectPartner:

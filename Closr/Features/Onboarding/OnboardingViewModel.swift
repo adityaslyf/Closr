@@ -24,7 +24,8 @@ enum OnboardingDestination: Hashable {
     case relationshipChallenge // → RelationshipChallengeView (step 1h)
     case valueProposition      // → ValuePropositionView     (step 1i)
     case paywall               // → PaywallView               (step 1j)
-    case connectPartner        // → ConnectPartnerView        (step 2)
+    case signIn                // → SignInView                (step 2)
+    case connectPartner        // → ConnectPartnerView        (step 3)
     case inviteCode            // → ConnectPartnerView via "I have a code"
     case firstQuestion         // → FirstQuestionView         (step 4)
 }

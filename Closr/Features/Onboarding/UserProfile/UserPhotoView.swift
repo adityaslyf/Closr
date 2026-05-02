@@ -79,7 +79,17 @@ struct UserPhotoView: View {
                 }
             }
             .pressAnimation()
+            
             Spacer()
+
+            Button {
+                onContinue?()
+            } label: {
+                Text("Skip")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(AppColors.textSecondary)
+            }
+            .pressAnimation()
         }
     }
 }
