@@ -74,7 +74,7 @@ struct UserBirthdayView: View {
             Button { dismiss() } label: {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(AppColors.buttonBackground)
                         .frame(width: 40, height: 40)
                     Image(systemName: "chevron.left")
                         .font(.system(size: 14, weight: .semibold))
@@ -99,5 +99,5 @@ struct UserBirthdayView: View {
 
 #Preview {
     UserBirthdayView()
-        .preferredColorScheme(.dark)
+        
 }

@@ -29,7 +29,7 @@ struct ConnectionOptionCard: View {
                     Circle()
                         .fill(isSelected
                               ? AppColors.brand.opacity(0.18)
-                              : Color.white.opacity(0.06))
+                              : AppColors.border)
                         .frame(width: 52, height: 52)
 
                     Image(systemName: icon)

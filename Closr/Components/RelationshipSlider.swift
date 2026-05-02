@@ -43,7 +43,7 @@ struct RelationshipSlider: View {
                 ZStack(alignment: .leading) {
                     // Full track
                     Capsule()
-                        .fill(Color.white.opacity(0.12))
+                        .fill(AppColors.borderActive)
                         .frame(height: 3)
 
                     // Filled portion

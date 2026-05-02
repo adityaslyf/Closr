@@ -69,7 +69,7 @@ struct LivingSituationView: View {
             Button { dismiss() } label: {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(AppColors.buttonBackground)
                         .frame(width: 40, height: 40)
                     Image(systemName: "chevron.left")
                         .font(.system(size: 14, weight: .semibold))
@@ -95,7 +95,7 @@ struct LivingSituationView: View {
                         .font(.system(size: 20))
                 } else {
                     Circle()
-                        .stroke(Color.white.opacity(0.12), lineWidth: 1.5)
+                        .stroke(AppColors.borderActive, lineWidth: 1.5)
                         .frame(width: 20, height: 20)
                 }
 
@@ -118,7 +118,7 @@ struct LivingSituationView: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: AppRadius.md)
-                    .stroke(isSelected ? AppColors.brand : Color.white.opacity(0.06), lineWidth: 1)
+                    .stroke(isSelected ? AppColors.brand : AppColors.border, lineWidth: 1)
             )
         }
         .pressAnimation()
@@ -127,5 +127,5 @@ struct LivingSituationView: View {
 
 #Preview {
     LivingSituationView()
-        .preferredColorScheme(.dark)
+        
 }

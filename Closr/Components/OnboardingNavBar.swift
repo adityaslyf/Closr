@@ -26,7 +26,7 @@ struct OnboardingNavBar: View {
             Button(action: onBack) {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(AppColors.buttonBackground)
                         .frame(width: 40, height: 40)
 
                     Image(systemName: "chevron.left")

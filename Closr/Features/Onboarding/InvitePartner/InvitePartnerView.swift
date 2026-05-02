@@ -110,7 +110,7 @@ struct InvitePartnerView: View {
                                     ? AppColors.brand.opacity(0.7)
                                     : (isFieldFocused
                                         ? AppColors.brand.opacity(0.45)
-                                        : Color.white.opacity(0.06)),
+                                        : AppColors.border),
                                 lineWidth: 1
                             )
                     )
@@ -203,5 +203,5 @@ struct InvitePartnerView: View {
 // MARK: - Preview
 #Preview {
     InvitePartnerView()
-        .preferredColorScheme(.dark)
+        
 }

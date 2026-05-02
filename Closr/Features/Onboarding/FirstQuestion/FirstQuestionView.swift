@@ -112,7 +112,7 @@ struct FirstQuestionView: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: AppRadius.md)
-                .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                .stroke(AppColors.border, lineWidth: 1)
         )
     }
 
@@ -143,7 +143,7 @@ struct FirstQuestionView: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: AppRadius.md)
-                    .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                    .stroke(AppColors.borderActive, lineWidth: 1)
             )
         }
         .pressAnimation()
@@ -154,5 +154,5 @@ struct FirstQuestionView: View {
 // MARK: - Preview
 #Preview {
     FirstQuestionView()
-        .preferredColorScheme(.dark)
+        
 }

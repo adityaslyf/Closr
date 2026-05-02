@@ -28,10 +28,17 @@ struct ClosrApp: App {
     }()
 
     // MARK: - Scene
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
+
     var body: some Scene {
         WindowGroup {
-            WelcomeView()
-                .preferredColorScheme(.dark)
+            if hasCompletedOnboarding {
+                MainTabView()
+                    
+            } else {
+                WelcomeView()
+                    
+            }
         }
         .modelContainer(sharedModelContainer)
     }

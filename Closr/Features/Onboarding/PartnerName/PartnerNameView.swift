@@ -55,7 +55,7 @@ struct PartnerNameView: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppRadius.md)
-                                    .stroke(isInputFocused ? AppColors.brand : Color.white.opacity(0.06), lineWidth: 1)
+                                    .stroke(isInputFocused ? AppColors.brand : AppColors.border, lineWidth: 1)
                             )
                             .focused($isInputFocused)
                             .autocorrectionDisabled()
@@ -97,7 +97,7 @@ struct PartnerNameView: View {
             Button { dismiss() } label: {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(AppColors.buttonBackground)
                         .frame(width: 40, height: 40)
                     Image(systemName: "chevron.left")
                         .font(.system(size: 14, weight: .semibold))
@@ -112,5 +112,5 @@ struct PartnerNameView: View {
 
 #Preview {
     PartnerNameView()
-        .preferredColorScheme(.dark)
+        
 }

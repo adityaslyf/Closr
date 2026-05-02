@@ -118,7 +118,7 @@ struct UserProfileView: View {
                                     ? AppColors.brand.opacity(0.7)
                                     : (isNameFocused
                                         ? AppColors.brand.opacity(0.45)
-                                        : Color.white.opacity(0.06)),
+                                        : AppColors.border),
                                 lineWidth: 1
                             )
                     )
@@ -202,7 +202,7 @@ struct UserProfileView: View {
                         .fill(AppColors.backgroundCard)
                         .overlay(
                             RoundedRectangle(cornerRadius: AppRadius.md)
-                                .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                                .stroke(AppColors.border, lineWidth: 1)
                         )
                 )
             }
@@ -252,7 +252,7 @@ struct UserProfileView: View {
                     )
                     .datePickerStyle(.wheel)
                     .labelsHidden()
-                    .environment(\.colorScheme, .dark)
+                    
 
                     PrimaryButton(title: "Done") {
                         viewModel.showBirthdayPicker = false
@@ -281,5 +281,5 @@ struct UserProfileView: View {
 // MARK: - Preview
 #Preview {
     UserProfileView()
-        .preferredColorScheme(.dark)
+        
 }

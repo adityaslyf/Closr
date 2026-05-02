@@ -47,7 +47,7 @@ struct SubscriptionPlanCard: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: AppRadius.md)
                         .stroke(
-                            isSelected ? teal : Color.white.opacity(0.08),
+                            isSelected ? teal : AppColors.buttonBackground,
                             lineWidth: isSelected ? 2 : 1
                         )
                 )

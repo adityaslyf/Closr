@@ -35,7 +35,7 @@ struct ChipButton: View {
                                 .stroke(
                                     isSelected
                                         ? AppColors.brand.opacity(0.75)
-                                        : Color.white.opacity(0.12),
+                                        : AppColors.borderActive,
                                     lineWidth: 1
                                 )
                         )

@@ -89,7 +89,7 @@ struct SignInView: View {
                         .cornerRadius(28)
                         .overlay(
                             RoundedRectangle(cornerRadius: 28)
-                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                .stroke(AppColors.borderActive, lineWidth: 1)
                         )
                     }
                 }
@@ -108,7 +108,7 @@ struct SignInView: View {
             Button { dismiss() } label: {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(AppColors.buttonBackground)
                         .frame(width: 40, height: 40)
                     Image(systemName: "chevron.left")
                         .font(.system(size: 14, weight: .semibold))
@@ -133,5 +133,5 @@ struct SignInView: View {
 
 #Preview {
     SignInView()
-        .preferredColorScheme(.dark)
+        
 }

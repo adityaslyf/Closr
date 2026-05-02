@@ -121,12 +121,12 @@ struct ConnectPartnerView: View {
 
     private var orDivider: some View {
         HStack(spacing: AppSpacing.sm) {
-            Rectangle().fill(Color.white.opacity(0.1)).frame(height: 1)
+            Rectangle().fill(AppColors.borderActive).frame(height: 1)
             Text("OR")
                 .font(.system(size: 11, weight: .semibold))
                 .foregroundStyle(AppColors.textSecondary)
                 .tracking(1.5)
-            Rectangle().fill(Color.white.opacity(0.1)).frame(height: 1)
+            Rectangle().fill(AppColors.borderActive).frame(height: 1)
         }
     }
 
@@ -158,7 +158,7 @@ struct ConnectPartnerView: View {
                                     ? AppColors.brand.opacity(0.7)
                                     : (isCodeFieldFocused
                                         ? AppColors.brand.opacity(0.45)
-                                        : Color.white.opacity(0.06)),
+                                        : AppColors.border),
                                 lineWidth: 1
                             )
                     )
@@ -236,7 +236,7 @@ struct ConnectPartnerView: View {
                     .background(
                         RoundedRectangle(cornerRadius: AppRadius.md)
                             .fill(codeCopied ? AppColors.brand.opacity(0.12)
-                                             : Color.white.opacity(0.08))
+                                             : AppColors.buttonBackground)
                     )
                 }
                 .pressAnimation()
@@ -289,7 +289,7 @@ struct ConnectPartnerView: View {
             Button { dismiss() } label: {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(AppColors.buttonBackground)
                         .frame(width: 40, height: 40)
                     Image(systemName: "chevron.left")
                         .font(.system(size: 14, weight: .semibold))
@@ -305,5 +305,5 @@ struct ConnectPartnerView: View {
 // MARK: - Preview
 #Preview {
     ConnectPartnerView()
-        .preferredColorScheme(.dark)
+        
 }

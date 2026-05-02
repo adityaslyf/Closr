@@ -13,32 +13,48 @@ import SwiftUI
 ///
 /// Brand palette — dusty rose / warm blush pink.
 /// Chosen to feel romantic and premium without being garish.
+extension Color {
+    init(lightHex: String, darkHex: String) {
+        self.init(UIColor { traitCollection in
+            if traitCollection.userInterfaceStyle == .dark {
+                return UIColor(Color(hex: darkHex))
+            } else {
+                return UIColor(Color(hex: lightHex))
+            }
+        })
+    }
+}
+
 enum AppColors {
 
     // MARK: - Background
-    /// Near-black with a very subtle warm-plum tint
-    static let backgroundPrimary   = Color(hex: "#0D0A0D")
-    static let backgroundSecondary = Color(hex: "#1A1220")
-    static let backgroundCard      = Color(hex: "#1C1425")
+    static let backgroundPrimary   = Color(hex: "#FAFAFC") // Premium off-white / cream
+    static let backgroundSecondary = Color(hex: "#FFFFFF") // Pure white
+    static let backgroundCard      = Color(hex: "#FFFFFF") // Pure white for standard cards
 
     // MARK: - Brand / Accent  (rose-pink palette)
-    static let brand               = Color(hex: "#D4688B")   // warm rose-pink
-    static let brandMuted          = Color(hex: "#8B2B52")   // deep raspberry for lens fill
-    static let brandGlow           = Color(hex: "#D4688B").opacity(0.25)
+    static let brand               = Color(hex: "#D4688B")
+    static let brandMuted          = Color(hex: "#FDE8ED")
+    static let brandGlow           = Color(hex: "#D4688B").opacity(0.15)
 
     // MARK: - Text
-    static let textPrimary         = Color.white
-    static let textSecondary       = Color(hex: "#A899B0")   // soft lavender-grey
-    static let textAccent          = Color(hex: "#D4688B")   // used for italic "daily."
+    static let textPrimary         = Color(hex: "#1A1A24") // Deep premium slate
+    static let textSecondary       = Color(hex: "#8E8E9F") // Soft slate grey
+    static let textAccent          = Color(hex: "#D4688B")
 
     // MARK: - UI Elements
-    static let divider             = Color(hex: "#2D1A35")
-    static let buttonPrimary       = Color.white
-    static let buttonPrimaryText   = Color(hex: "#0D0A0D")
+    static let divider             = Color(hex: "#E5E5EA")
+    static let buttonPrimary       = Color(hex: "#D4688B")
+    static let buttonPrimaryText   = Color.white
+    
+    // Borders
+    static let border              = Color.black.opacity(0.06)
+    static let buttonBackground    = Color.black.opacity(0.04)
+    static let borderActive        = Color.black.opacity(0.12)
 
     // MARK: - Gradients
     static let radialGlow          = RadialGradient(
-        colors: [Color(hex: "#3D1030"), Color(hex: "#0D0A0D")],
+        colors: [Color(hex: "#FFFFFF"), Color(hex: "#FAFAFC")],
         center: .center,
         startRadius: 20,
         endRadius: 180

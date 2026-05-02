@@ -78,7 +78,7 @@ struct RelationshipLengthView: View {
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: AppRadius.md)
-                                        .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                                        .stroke(AppColors.border, lineWidth: 1)
                                 )
                             }
                             .pressAnimation()
@@ -124,7 +124,7 @@ struct RelationshipLengthView: View {
             Button { dismiss() } label: {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.08))
+                        .fill(AppColors.buttonBackground)
                         .frame(width: 40, height: 40)
                     Image(systemName: "chevron.left")
                         .font(.system(size: 14, weight: .semibold))
@@ -189,7 +189,7 @@ struct RelationshipLengthView: View {
                     )
                     .datePickerStyle(.graphical)
                     .tint(AppColors.brand)
-                    .environment(\.colorScheme, .dark)
+                    
                     .padding()
 
                     PrimaryButton(title: "Done") {
@@ -209,5 +209,5 @@ struct RelationshipLengthView: View {
 
 #Preview {
     RelationshipLengthView()
-        .preferredColorScheme(.dark)
+        
 }

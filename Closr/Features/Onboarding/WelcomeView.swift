@@ -19,6 +19,7 @@ struct WelcomeView: View {
 
     // MARK: - ViewModel
     @State private var viewModel = OnboardingViewModel()
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
 
     // MARK: - Body
     var body: some View {
@@ -199,7 +200,7 @@ struct WelcomeView: View {
             )
         case .firstQuestion:
             FirstQuestionView(
-                onContinue: { viewModel.navigationPath.removeAll() }
+                onContinue: { hasCompletedOnboarding = true }
             )
         }
     }
@@ -208,6 +209,6 @@ struct WelcomeView: View {
 // MARK: - Preview
 #Preview {
     WelcomeView()
-        .preferredColorScheme(.dark)
+        
 }
 
