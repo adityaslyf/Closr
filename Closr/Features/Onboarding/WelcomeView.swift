@@ -140,10 +140,22 @@ struct WelcomeView: View {
             )
         case .partnerName:
             PartnerNameView(
+                onContinue: { viewModel.navigationPath.append(.relationshipStatus) }
+            )
+        case .relationshipStatus:
+            RelationshipStatusView(
                 onContinue: { viewModel.navigationPath.append(.relationshipLength) }
             )
         case .relationshipLength:
             RelationshipLengthView(
+                onContinue: { viewModel.navigationPath.append(.livingSituation) }
+            )
+        case .livingSituation:
+            LivingSituationView(
+                onContinue: { viewModel.navigationPath.append(.kids) }
+            )
+        case .kids:
+            KidsView(
                 onContinue: { viewModel.navigationPath.append(.loveLanguage) }
             )
         case .loveLanguage:
