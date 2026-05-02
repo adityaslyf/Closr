@@ -130,8 +130,16 @@ struct WelcomeView: View {
     @ViewBuilder
     private func destinationView(for destination: OnboardingDestination) -> some View {
         switch destination {
-        case .userProfile:
-            UserProfileView(
+        case .userName:
+            UserNameView(
+                onContinue: { viewModel.navigationPath.append(.userBirthday) }
+            )
+        case .userBirthday:
+            UserBirthdayView(
+                onContinue: { viewModel.navigationPath.append(.userPhoto) }
+            )
+        case .userPhoto:
+            UserPhotoView(
                 onContinue: { viewModel.navigationPath.append(.gender) }
             )
         case .gender:
@@ -172,12 +180,7 @@ struct WelcomeView: View {
             )
         case .paywall:
             PaywallView(
-                onContinue: { viewModel.navigationPath.append(.createAccount) }
-            )
-        case .createAccount:
-            InvitePartnerView(
-                onInviteSent: { viewModel.navigationPath.append(.connectPartner) },
-                onSkip:       { viewModel.navigationPath.append(.connectPartner) }
+                onContinue: { viewModel.navigationPath.append(.connectPartner) }
             )
         case .connectPartner:
             ConnectPartnerView(

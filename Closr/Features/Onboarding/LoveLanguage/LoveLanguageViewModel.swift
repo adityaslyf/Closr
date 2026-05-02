@@ -21,13 +21,13 @@ enum LoveLanguage: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    var emoji: String {
+    var iconName: String {
         switch self {
-        case .words:         return "💬"
-        case .time:          return "🕐"
-        case .touch:         return "🤝"
-        case .gifts:         return "🎁"
-        case .actsOfService: return "🔧"
+        case .words:         return "quote.bubble.fill"
+        case .time:          return "clock.fill"
+        case .touch:         return "hand.raised.fill"
+        case .gifts:         return "gift.fill"
+        case .actsOfService: return "hands.and.sparkles.fill"
         }
     }
 

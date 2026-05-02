@@ -66,7 +66,7 @@ struct LoveLanguageView: View {
                         LazyVGrid(columns: columns, spacing: AppSpacing.sm) {
                             ForEach(gridLanguages) { lang in
                                 LoveLanguageCard(
-                                    emoji:      lang.emoji,
+                                    iconName:   lang.iconName,
                                     title:      lang.rawValue,
                                     subtitle:   lang.subtitle,
                                     isSelected: viewModel.selected == lang,
@@ -80,7 +80,7 @@ struct LoveLanguageView: View {
 
                         // ── Full-width 5th card ───────────────────────────
                         LoveLanguageCard(
-                            emoji:      LoveLanguage.actsOfService.emoji,
+                            iconName:   LoveLanguage.actsOfService.iconName,
                             title:      LoveLanguage.actsOfService.rawValue,
                             subtitle:   LoveLanguage.actsOfService.subtitle,
                             isSelected: viewModel.selected == .actsOfService,

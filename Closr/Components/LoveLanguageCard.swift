@@ -14,7 +14,7 @@ import SwiftUI
 struct LoveLanguageCard: View {
 
     // MARK: - Properties
-    let emoji: String
+    let iconName: String
     let title: String
     let subtitle: String
     let isSelected: Bool
@@ -25,9 +25,10 @@ struct LoveLanguageCard: View {
         Button(action: action) {
             VStack(spacing: AppSpacing.xs) {
 
-                // Emoji icon
-                Text(emoji)
-                    .font(.system(size: 34))
+                // Icon
+                Image(systemName: iconName)
+                    .font(.system(size: 32, weight: .semibold))
+                    .foregroundStyle(AppColors.brand)
                     .padding(.top, AppSpacing.sm)
 
                 // Title
@@ -71,8 +72,8 @@ struct LoveLanguageCard: View {
     ZStack {
         AppColors.backgroundPrimary.ignoresSafeArea()
         HStack(spacing: AppSpacing.sm) {
-            LoveLanguageCard(emoji: "💬", title: "words", subtitle: "affirmation & praise", isSelected: true,  action: {})
-            LoveLanguageCard(emoji: "🕐", title: "time",  subtitle: "quality time together", isSelected: false, action: {})
+            LoveLanguageCard(iconName: "bubble.left.and.heart.fill", title: "words", subtitle: "affirmation & praise", isSelected: true,  action: {})
+            LoveLanguageCard(iconName: "clock.fill", title: "time",  subtitle: "quality time together", isSelected: false, action: {})
         }
         .padding(AppSpacing.lg)
     }

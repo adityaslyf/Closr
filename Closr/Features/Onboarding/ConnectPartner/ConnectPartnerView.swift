@@ -32,7 +32,7 @@ struct ConnectPartnerView: View {
             VStack(spacing: 0) {
 
                 // ── Nav bar ───────────────────────────────────────────────
-                OnboardingNavBar(totalSteps: 3, currentStep: 3) { dismiss() }
+                backBar
                     .padding(.horizontal, AppSpacing.lg)
                     .padding(.top, AppSpacing.md)
 
@@ -83,15 +83,8 @@ struct ConnectPartnerView: View {
 
     private var headlineSection: some View {
         VStack(alignment: .leading, spacing: AppSpacing.xs) {
-            HStack(spacing: 0) {
-                Text(AppStrings.ConnectPartner.headlinePrefix)
-                    .font(AppFonts.displayMedium(size: 30))
-                    .foregroundColor(AppColors.textPrimary)
-                Text(AppStrings.ConnectPartner.headlineItalic)
-                    .font(AppFonts.displayItalic(size: 30))
-                    .foregroundColor(AppColors.textAccent)
-            }
-            .lineSpacing(2)
+            Text("\(Text(AppStrings.ConnectPartner.headlinePrefix).font(AppFonts.displayMedium(size: 30)).foregroundColor(AppColors.textPrimary))\(Text(AppStrings.ConnectPartner.headlineItalic).font(AppFonts.displayItalic(size: 30)).foregroundColor(AppColors.textAccent))")
+                .lineSpacing(2)
 
             Text(AppStrings.ConnectPartner.subtitle)
                 .font(AppFonts.bodyRegular(size: 15))
@@ -288,6 +281,23 @@ struct ConnectPartnerView: View {
                 title: AppStrings.ConnectPartner.ctaSkip,
                 action: { onSkip?() }
             )
+        }
+    }
+
+    private var backBar: some View {
+        HStack {
+            Button { dismiss() } label: {
+                ZStack {
+                    Circle()
+                        .fill(Color.white.opacity(0.08))
+                        .frame(width: 40, height: 40)
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(AppColors.textPrimary)
+                }
+            }
+            .pressAnimation()
+            Spacer()
         }
     }
 }
