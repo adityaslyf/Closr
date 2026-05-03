@@ -34,10 +34,10 @@ struct ClosrApp: App {
         WindowGroup {
             if hasCompletedOnboarding {
                 MainTabView()
-                    
+                    .preferredColorScheme(.light)
             } else {
                 WelcomeView()
-                    
+                    .preferredColorScheme(.light)
             }
         }
         .modelContainer(sharedModelContainer)
